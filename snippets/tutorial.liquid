@@ -1,0 +1,244 @@
+
+
+{% comment %}
+    capturando elemento html
+
+
+{% capture html %}
+    <div>
+        <p>Hello {{ product.title }}</p>
+    </div>
+    
+{% endcapture %}
+
+{{ html }}
+
+
+{% endcomment %}
+
+{% comment %}
+
+    {% if product.tags contains 'dunks' %}
+    <p>deu certo</p>
+{% endif %}
+
+{% endcomment %}
+
+
+{% comment %}
+    esté é o modo inverso do contains> usamos o unless
+
+    {% unless product.tags contains 'dunks' %}
+    <p>este produto não contem a palavra dunks</p>
+{% endunless %}
+
+
+--------- duas condições ---------
+
+
+{% if product.title contains 'Nike' and product.price > 100 %}
+    <p>este produto contem nike e é maior que 100 reais</p>
+{% endif %}
+
+{{ product.type }}
+
+
+
+
+
+
+----------- condições de enquanto (case / when) ----
+
+{% if product.type != blank %}
+    {% case product.type %}
+    {% when 'dunks' %}
+        <p>é um dunks</p>
+    {% when 'bermuda' %}
+        <p>é uma bermunda</p>
+    {% when 'camiseta' %}
+        <p>é uma camiseta</p>  
+    {% else %}
+        <p>não há esse produto</p>
+        
+{% endcase %}    
+{% endif %}
+
+
+{% endcomment %}
+
+
+
+
+
+{% comment %}                 Collection      
+                 
+
+{% for produto in collection.products %}
+    <p style="
+        {% if forloop.first %} 
+        color:green 
+        {%  elsif forloop.last %} 
+        color:orange 
+        {% endif %}"
+        >
+        {{ forloop.index }} - {{ produto.title }}
+        </p>
+{% endfor %}
+
+
+
+
+{% paginate collection.products by 3 %}
+    {% for product in collection.products %}
+        <p>{{ product.title }}</p>
+    {% endfor %}
+
+    {{ paginate |  default_pagination }}
+{% endpaginate %}
+
+
+
+
+-------------- operadores aritimedicos ------
+
+{% assign myNumber = 10 %}  
+
+{% assign myNewNumber = myNumber | plus: 5 %} +
+{% assign myNewNumber = myNumber | minus: 5 %} -
+{% assign myNewNumber = myNumber | times: 5 %} *
+{% assign myNewNumber = myNumber | divided_by: 5 %} /
+
+{{ myNewNumber }}
+
+
+----------------------
+
+{% assign myNewNumber = 11 %}
+{% assign moduloOf = myNewNumber |  modulo: 2 %}
+{% if moduloOf == 0 %}
+    <p>par</p>
+{% else %}
+    <p>impar</p>
+{% endif %}
+
+
+
+--------------- Trabalhando com strings -------
+
+
+{% assign myString = 'Hello World' %}
+{{ myString |  upcase }}
+{{ myString |  downcase }}
+{{ myString |  capitalize }}
+{{ myString |  append: ' Ambiente de teste ' }}
+
+<br>
+{% assign outherString = ' ambiente de teste' %}
+{{ myString |  append: outherString |  upcase }}
+
+<br>
+
+{% assign variavelLonga = 'diminuindo uma string longa ' %}
+<p>{{ variavelLonga |  truncate: 20 }}</p>
+
+<br>
+<p>{{ variavelLonga |  truncatewords: 3 }}</p>
+
+
+{% assign multiLine = '
+    This is the first line
+    This is the secund line
+    This is the third line
+'
+|  newline_to_br 
+%}
+
+<p>{{ multiLine }}</p>
+
+
+{% assign myText = 'ola teste para substituir palavras' %}
+<p>{{ myText |  replace: 'substituir', 'Mudar'  }}</p>
+<p>{{ myText |  replace_first: 'substituir', 'Mudar'  }}</p>
+<p>{{ myText |  replace_last: 'substituir', 'Mudar'  }}</p>
+<p>{{ myText |  remove: 'substituir'  }}</p>
+
+
+
+------------- 
+
+
+
+{% assign myNumber = '1, 2, 3, 4' |  split: ',' %}
+
+{% for number  in myNumber %}
+    <p>{{ number }}</p>
+{% endfor %}
+
+
+{% assign linguas = 'htlm|orange,css|blue,java|yellow' |  split: ',' %}
+
+{% for language  in linguas %}
+    {% assign languageName = language |  split: '|' |  first %}
+    {% assign languageColor = language |  split: '|' |  last %}
+    <p style="color: {{ languageColor }}">{{ languageName }}</p>
+{% endfor %}
+
+
+-----------map -----------
+
+<p>{{ product.title }}</p>
+{% assign products = collection.products %}
+{% assign productTitle = products | map: 'title' %}
+
+{% for productTitle in productTitles %}
+    <p>{{ productTitle }}</p>
+{% endfor %}
+
+
+
+{% for product in products %}
+    <p>{{ product.title }} - {{ product.price | money }}</p>
+{% endfor %}
+
+
+{% assign allPrice = products |  map: 'price' |  sort  %}
+{% for price in allPrice %}
+    <p>{{ price |  money}}</p>
+{% endfor %}
+
+
+------ descricão da coleção -----
+
+ <style>
+    .highlight {
+        background: yellow;
+    }
+</style>
+ <p>{{ collection.description | default: 'this is a default descripition' }}</p>
+
+ <p>{{ 'this is some text with more text' |  highlight: 'text' }}</p>
+
+
+
+
+ ----------- IMAGENS --------------
+
+ {{ collection.products.first.featured_image |  image_url: width: 200, height:200 |  image_tag  }}
+
+<img src="{{ 'imagem-png' |  asset_img_url: '500x500' }}"
+ alt=""
+ loading="eager"
+ width="500"
+ height="500"
+ >
+
+ {% for img in collection.products %}
+    <p>imagem</p>
+    <img src="{{ img.featured_image |  image_url: width: 500 , height: 500 |  image_tag  }}" alt="{{ img.title }}">
+{% endfor %}
+
+{% endcomment %}
+
+
+
+

@@ -1,0 +1,58 @@
+
+
+<div style="display: flex; justify-content: center;flex-direction: column; gap: 20px">
+    <h2>{{ section.settings.texto }}</h2>
+
+    <div style="display: flex;" class="grid">
+        {% for block  in section.blocks %}
+            {% if block.type == 'promocao' %}
+                <div style="display: flex; flex-direction: column; gap:20px">
+                    {{ block.settings.title }}
+                    {{ block.settings.img |  image_url: width: 200 |  image_tag }}
+                </div>
+                
+            {% endif %}
+        {% endfor %}
+    </div>
+   
+</div>
+
+
+
+
+{% schema %}
+{
+    "name": "promotion",
+    "settings": [
+        {
+            "type": "text",
+            "id": "texto",
+            "label": "texto produto"
+        }       
+        ],
+        "blocks": [
+            {
+               "type": "promocao",
+               "limit": 4,
+               "name": "imagem-promotion",
+               "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "img",
+                    "label": "imagem-produto"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "titulo produto"
+                }
+               ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "promoção"
+            }
+        ]
+}
+{% endschema %}

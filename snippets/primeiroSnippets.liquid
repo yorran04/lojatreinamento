@@ -1,0 +1,30 @@
+
+{% comment %}
+
+    <p>Meu primeiro snippets</p>
+
+{% endcomment %}
+
+
+<div>
+    <h2>{{ product.title }}</h2>
+    <p>{{ product.price }}</p>
+</div>
+
+
+{% assign frase = 'Hello World' %}
+{{ frase |  upcase }}
+<br>
+{{ frase |  capitalize }}
+<br>
+{{ frase |  append: ' Outra fraze' }}
+
+
+
+
+
+{% assign myString = 'Hello World' %}
+{{ myString |  upcase }}
+{{ myString |  downcase }}
+{{ myString |  capitalize }}
+{{ myString |  append: ' Ambiente de teste ' }}

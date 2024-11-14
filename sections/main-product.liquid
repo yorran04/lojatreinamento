@@ -1,3 +1,25 @@
+{% comment %}
+
+  <h2>Exemplo MetaCampos</h2>
+<p>{{ product.metafields.custom.exemplo_metafileld }}</p>
+
+<h2>Produto Relacionando</h2>
+<p>{{ product.metafields.custom.relacionado_produto.value.price | money }}</p>
+
+<h2>File Metafield</h2>
+<a href="{{ product.metafields.custom.guia_de_produtos.value.url }}">Download</a>
+
+<h2>Imagem Metafield</h2>
+{{ product.metafields.custom.image_metafield |  image_url: width: 500 |  image_tag }}
+
+<h2>Data Metafield</h2>
+<p style="margin-left: 20px ;">{{ product.metafields.custom.date_metafield.value |  date: '%B %d, %Y' }}</p>
+
+
+
+{% endcomment %}
+
+
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"

@@ -1,0 +1,241 @@
+
+
+<section style="padding: 20px;">
+    <h2>texto simple</h2>
+    <p>{{ section.settings.text_setting }}</p>
+    
+    <h2>area texto</h2>
+    <p>{{ section.settings.area-texto |  newline_to_br  }}</p>
+    
+    <h2>rich text</h2>
+    <p>{{ section.settings.rich-text }}</p>
+    
+    
+    <h2>Number Setting</h2>
+    <p>{{ section.settings.number_setting }}</p>
+    
+    <h2>Range Setting</h2>
+    <p>{{ section.settings.range_setting }}</p>
+
+    <h2>Select Setting</h2>
+    <p>{{ section.settings.select_setting }}</p>
+
+
+    <h2>Checkbox Setting</h2>
+    {% if section.settings.checkbox_setting == true %}
+        <p>Checkbox is true</p>
+        {% else %}
+            <p>Checkbox is False</p>
+    {% endif %}
+
+
+    <h2>Radio Setting</h2>
+    <p>{{ section.settings.radio_setting }}</p>
+
+
+
+    <h2>Color Setting</h2>
+    <p style="color: {{ section.settings.color_setting }};">{{ section.settings.color_setting }}</p>
+
+    <div style="background: {{ section.settings.background_setting }};">
+    <h2>Color background Setting</h2>
+    <p>{{ section.settings.background_setting }}</p>
+    </div>
+
+
+    {% if section.settings.img_settings != blank %}
+        <h2>Imagem Setting</h2>
+        {{ section.settings.img_settings |  image_url: width: 400 |  image_tag: style: 'height: 200px; object-fit: cover;'  }}
+    {% endif %}
+
+
+
+    <div>
+        <h2>Video Settins</h2>
+        {{ section.settings.video_settings |  video_tag: controls: true, style: "height: 500px; width: 500px", image_size: '500x'  }}
+    </div>
+
+
+<div>
+    <h2>Video Youtube</h2>
+    <iframe 
+    width="560"
+    height="315"
+    src="https://www.youtube.com/watch?v=AYuiXSvRIFQ/{{ section.settings.video_url.id }}"
+    title="Youtube Video"
+    frameborder="0"
+    allow="accelerometer: autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    > </iframe>
+</div>
+
+
+{% for product in section.settings.product_list %}
+    <p>
+        {{ product.handle }} | {{ product.title }} -
+        {{ product.variants[0].price | money }}
+        {{ product.featured_image | image_url: width:500 |  image_tag }}
+    </p>
+    
+{% endfor %}
+
+
+<h2 style="text-align: {{ section.settings.text_aline }};">Alinhamento </h2>
+
+</section>
+
+
+
+
+
+
+
+{% schema %}
+
+
+{
+    "name": "Sections Turorial",
+    "tag": "section",
+    "class": "section-tutorial",
+    "limit": 2,
+    "settings": [
+        {
+            "type": "text",
+            "id": "text_setting",
+            "label": "texto simples"
+        },
+        {
+            "type": "textarea",
+            "id": "area-texto",
+            "label": "area do texto"
+        },
+        {
+            "type": "richtext",
+            "id": "rich-text",
+            "label": "rich text"
+        },
+        {
+            "type": "number",
+            "id": "number_setting",
+            "label": "Number Setting"
+        },
+        {
+            "type": "range",
+            "id": "range_setting",
+            "label": "Range Setting",
+            "min": 50,
+            "max": 150,
+            "step": 5,
+            "unit": "px",
+            "default": 60
+        },
+        {
+            "type": "select",
+            "id": "select_setting",
+            "label": "Select Setting",
+            "options": [
+                {
+                   "value": "valor1",
+                   "label": "Valor 1" 
+                },
+                {
+                   "value": "valor2",
+                   "label": "Valor 2" 
+                },
+                {
+                   "value": "valor3",
+                   "label": "Valor 3" 
+                }
+            ]
+        },
+        {
+            "type": "checkbox",
+            "label": "Checkbox Setting",
+            "id": "checkbox_setting",
+            "default": true
+        },
+        {
+            "type": "radio",
+            "id": "radio_setting",
+            "label": "Radio Button Setting",
+            "options": [
+                {
+                    "value": "value-1",
+                    "label": "valor 1"
+                },
+                {
+                    "value": "value-2",
+                    "label": "valor 2"
+                },
+                {
+                    "value": "value-3",
+                    "label": "valor 3"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "Color"
+        },
+        {
+            "type": "color",
+            "id": "color_setting",
+            "label": "Color Setting"
+
+        },
+        {
+            "type": "color_background",
+            "id": "background_setting",
+            "label": "background Setting"
+
+        },
+        {
+            "type": "header",
+            "content": "IMAGEM"
+        },
+        {
+            "type": "image_picker",
+            "id": "img_settings",
+            "label": "imagem "
+        },
+        {
+            "type": "header",
+            "content": "Video"
+        },
+        {
+            "type": "video",
+            "id": "video_settings",
+            "label": "video settins "
+        },
+        {
+            "type": "video_url",
+            "label": "video url settings",
+            "id": "video_url",
+            "accept": ["youtube"]
+            
+        },
+        {
+            "type": "product",
+            "id": "product_setting",
+            "label": "produto setting"
+        },
+        {
+            "type": "product_list",
+            "label": "Product Setting",
+            "id": "product_list",
+            "limit": 5
+        },
+        {
+            "type": "text_alignment",
+            "id": "text_aline",
+            "default":"center",
+            "label": "alinhamento texto"
+        }
+        ],
+        "presets": [
+            {
+                "name": "section text"
+            }
+        ]
+}
+{% endschema %}
