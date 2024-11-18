@@ -435,6 +435,7 @@
 
 .banner__heading {
   margin-bottom: 0;
+  max-width:605.47px;
 }
 
 .banner__box .banner__heading + * {

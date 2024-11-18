@@ -1,7 +1,31 @@
 {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
 
+
+
+<style>
+  .text_banner{
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 33px;
+      
+      }
+  
+  #btn_banner{
+    background-color: #FFFFFF;
+    width: 240px;
+    height: 70px;
+    border-radius: 4px;  
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 54px; 
+    border-bottom: 4px solid #CA82AE
+  }
+</style>
+
 {%- if section.settings.image_height == 'adapt' and section.settings.image != blank -%}
   {%- style -%}
+
+
     @media screen and (max-width: 749px) {
       #Banner-{{ section.id }}::before,
       #Banner-{{ section.id }} .banner__media::before,
@@ -27,6 +51,7 @@
   #Banner-{{ section.id }}::after {
     opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 }};
   }
+
 {%- endstyle -%}
 
 {%- liquid
@@ -121,6 +146,7 @@
         {%- case block.type -%}
           {%- when 'heading' -%}
             <h2
+              style="color: {{ block.settings.color_titulo }};"
               class="banner__heading inline-richtext {{ block.settings.heading_size }}"
               {{ block.shopify_attributes }}
             >
@@ -128,7 +154,7 @@
             </h2>
           {%- when 'text' -%}
             <div class="banner__text rte {{ block.settings.text_style }}" {{ block.shopify_attributes }}>
-              <p>{{ block.settings.text }}</p>
+              <p class="text_banner" style="color: {{ block.settings.color_text }};">{{ block.settings.text }}</p>
             </div>
           {%- when 'buttons' -%}
             <div
@@ -136,7 +162,7 @@
               {{ block.shopify_attributes }}
             >
               {%- if block.settings.button_label_1 != blank -%}
-                <a
+                <a id="btn_banner" style=" color: {{ block.settings.btn_color }};"
                   {% if block.settings.button_link_1 == blank %}
                     role="link" aria-disabled="true"
                   {% else %}
@@ -374,6 +400,11 @@
           "label": "t:sections.image-banner.blocks.heading.settings.heading.label"
         },
         {
+            "type": "color",
+            "id": "color_titulo",
+            "label": "cor titulo"
+        },
+        {
           "type": "select",
           "id": "heading_size",
           "options": [
@@ -406,13 +437,18 @@
     {
       "type": "text",
       "name": "t:sections.image-banner.blocks.text.name",
-      "limit": 1,
+      "limit": 2,
       "settings": [
         {
           "type": "inline_richtext",
           "id": "text",
           "default": "t:sections.image-banner.blocks.text.settings.text.default",
           "label": "t:sections.image-banner.blocks.text.settings.text.label"
+        },
+        {
+          "type": "color",
+            "id": "color_text",
+            "label": "cor titulo"
         },
         {
           "type": "select",
@@ -447,6 +483,11 @@
           "default": "t:sections.image-banner.blocks.buttons.settings.button_label_1.default",
           "label": "t:sections.image-banner.blocks.buttons.settings.button_label_1.label",
           "info": "t:sections.image-banner.blocks.buttons.settings.button_label_1.info"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "cor do texto"
         },
         {
           "type": "url",

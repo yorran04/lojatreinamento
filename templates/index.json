@@ -6,14 +6,32 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "heading": "Agora, se prevenir contra o HIV ficou muito mais fácil.",
+            "color_titulo": "#2b2e8b",
+            "heading_size": "h1"
+          }
+        },
+        "text_YmeUz6": {
+          "type": "text",
+          "settings": {
+            "text": "Garanta a sua proteção ainda hoje.",
+            "color_text": "#2e3192",
+            "text_style": "body"
+          }
+        },
+        "text_cHVG8c": {
+          "type": "text",
+          "settings": {
+            "text": "<strong>Teleatendimento a partir de R$110,00<\/strong>",
+            "color_text": "#2e3192",
+            "text_style": "body"
           }
         },
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Quero me prevenir",
+            "btn_color": "#2e3192",
             "button_link_1": "shopify:\/\/collections\/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -24,14 +42,17 @@
       },
       "block_order": [
         "heading",
+        "text_YmeUz6",
+        "text_cHVG8c",
         "button"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
+        "image": "shopify:\/\/shop_images\/banner_hero.png",
+        "image_overlay_opacity": 0,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
+        "desktop_content_position": "middle-left",
         "show_text_box": false,
-        "desktop_content_alignment": "center",
+        "desktop_content_alignment": "left",
         "color_scheme": "scheme-3",
         "image_behavior": "none",
         "mobile_content_alignment": "center",
@@ -84,7 +105,8 @@
         "product_list": [
           "camisa-nike",
           "bermuda-nike"
-        ]
+        ],
+        "text_aline": "center"
       }
     }
   },
